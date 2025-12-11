@@ -14,6 +14,7 @@ class mainScene(Scene):
         self.a = rectObj(pygame.Rect(0,0,100,100),color=Cs.red)
         self.a.center = Rs.screenRect().center
         
+        self.b = imageObj(Icons.BUTTONX)
         return
     def init(self):
         return
@@ -25,6 +26,7 @@ class mainScene(Scene):
         return
     def draw(self):
         self.a.draw()
+        self.b.draw()
         return
 
 
