@@ -51,16 +51,31 @@ class mainScene(Scene):
         self.checkboxes: list[myCheckbox] = []
         for i in range(5):
             card = myCard(pygame.Rect(0,0,200,300),color=Cs.yellow,name=f"My Card {i+1}")
-            checkbox = myCheckbox(pygame.Rect(0,0,100,100))
-            card.center = RPoint(300 + i*220, Rs.screenRect().centery - 200)
-            checkbox.midtop = card.midbottom + RPoint(0,20)
             self.cards.append(card)
+        self.cardLayout = layoutObj(childs=self.cards,isVertical=False)
+        self.cardLayout.center = Rs.screenRect().center + RPoint(0,-100)
+        for i in range(5):
+            checkbox = myCheckbox(pygame.Rect(0,0,100,100))
+            checkbox.setParent(self.cardLayout[i])
+            checkbox.midtop = self.cardLayout[i].offsetRect.midbottom + RPoint(0,20)
             self.checkboxes.append(checkbox)
+
+        self.select_two_button = textButton("select Two")
+        self.select_two_button.center = Rs.screenRect().center + RPoint(0,250)
+        def check_select_two():
+            l = [cb.checked for cb in self.checkboxes if cb.checked]
+            if len(l)==2:
+                print("approved")
+            else:
+                print("nope")
+
+        self.select_two_button.connect(check_select_two)
         return
     def init(self):
         return
     def update(self):
 
+        self.select_two_button.update()
         if Rs.userJustLeftClicked():
             for checkbox in self.checkboxes:
                 if checkbox.collideMouse():
@@ -71,6 +86,7 @@ class mainScene(Scene):
             card.draw()
         for checkbox in self.checkboxes:
             checkbox.draw()
+        self.select_two_button.draw()
         return
 
 
