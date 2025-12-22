@@ -1,5 +1,5 @@
 from REMOLib import *
-
+import random
 
 
 
@@ -15,7 +15,12 @@ class mainScene(Scene):
         self.p.center = Rs.screenRect().center
         self.score = textObj("0",size=44,color=Cs.white)
         self.score.midtop = Rs.screenRect().midtop + RPoint(0,50)
+        self.apple = imageObj(Icons.RESOURCE_APPLE)
+        self.setApple()
+
         return
+    def setApple(self):
+        self.apple.center = RPoint(random.randint(self.apple.width,Rs.screenRect().width-self.apple.width),random.randint(self.apple.height,Rs.screenRect().height-self.apple.height))
     def getScore(self):
         return int(self.score.text)
     def setScore(self,score):
@@ -26,11 +31,15 @@ class mainScene(Scene):
         if Rs.userJustLeftClicked():
             self.p.color = Cs.blue
             self.p.easeout(["center","color"],[Rs.mousePos(),Cs.red])
+        if self.p.collidepoint(self.apple.center):
             self.setScore(self.getScore() + 1)
+            self.setApple()
+
         return
     def draw(self):
         self.p.draw()
         self.score.draw()
+        self.apple.draw()
         return
 
 
