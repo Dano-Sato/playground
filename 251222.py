@@ -17,8 +17,8 @@ class mainScene(Scene):
         self.score = textObj("0",size=44,color=Cs.white)
         self.score.midtop = Rs.screenRect().midtop + RPoint(0,50)
         self.apple = imageObj(Icons.RESOURCE_APPLE)
-        self.setApple()
         self.apple_is_normal = True  # 사과가 일반 사과인지 특별 사과인지 판별
+        self.setApple()
 
         return
     def setApple(self):
