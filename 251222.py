@@ -10,6 +10,7 @@ class Obj:
     None
 
 class mainScene(Scene):
+    SPECIAL_APPLE_SCORE = 100
     def initOnce(self):
         self.p = rectObj(pygame.Rect(0,0,100,100),color=Cs.red)
         self.p.center = Rs.screenRect().center
@@ -17,17 +18,20 @@ class mainScene(Scene):
         self.score.midtop = Rs.screenRect().midtop + RPoint(0,50)
         self.apple = imageObj(Icons.RESOURCE_APPLE)
         self.setApple()
-        self.apple_is_normal = True 
+        self.apple_is_normal = True  # 사과가 일반 사과인지 특별 사과인지 판별
 
         return
     def setApple(self):
+        # 사과를 랜덤한 위치로 이동
         self.apple.center = RPoint(random.randint(self.apple.width,Rs.screenRect().width-self.apple.width),random.randint(self.apple.height,Rs.screenRect().height-self.apple.height))
+
+        # 사과가 특별 사과인지 아닌지를 결정
         if random.random() < 0.9:
             self.apple_is_normal = True
             self.apple.colorize(Cs.white)
         else:
             self.apple_is_normal = False
-            self.apple.colorize(Cs.yellow)
+            self.apple.colorize(Cs.yellow) # special apple
     def getScore(self):
         return int(self.score.text)
     def setScore(self,score):
@@ -42,7 +46,7 @@ class mainScene(Scene):
             if self.apple_is_normal:
                 self.setScore(self.getScore() + 1)
             else:
-                self.setScore(self.getScore() + 100)
+                self.setScore(self.getScore() + self.SPECIAL_APPLE_SCORE) # get special apple score
             self.setApple()
 
         return
