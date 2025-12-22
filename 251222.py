@@ -17,10 +17,17 @@ class mainScene(Scene):
         self.score.midtop = Rs.screenRect().midtop + RPoint(0,50)
         self.apple = imageObj(Icons.RESOURCE_APPLE)
         self.setApple()
+        self.apple_is_normal = True 
 
         return
     def setApple(self):
         self.apple.center = RPoint(random.randint(self.apple.width,Rs.screenRect().width-self.apple.width),random.randint(self.apple.height,Rs.screenRect().height-self.apple.height))
+        if random.random() < 0.9:
+            self.apple_is_normal = True
+            self.apple.colorize(Cs.white)
+        else:
+            self.apple_is_normal = False
+            self.apple.colorize(Cs.yellow)
     def getScore(self):
         return int(self.score.text)
     def setScore(self,score):
@@ -32,7 +39,10 @@ class mainScene(Scene):
             self.p.color = Cs.blue
             self.p.easeout(["center","color"],[Rs.mousePos(),Cs.red])
         if self.p.collidepoint(self.apple.center):
-            self.setScore(self.getScore() + 1)
+            if self.apple_is_normal:
+                self.setScore(self.getScore() + 1)
+            else:
+                self.setScore(self.getScore() + 100)
             self.setApple()
 
         return
