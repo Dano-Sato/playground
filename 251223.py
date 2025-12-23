@@ -9,12 +9,31 @@ from REMOLib import *
 class Obj:
     None
 
+@dataclass
+class cardData:
+    name: str
+    description: str
+
+    def clone(self):
+        return replace(self)
+
+Card_Library = [
+    cardData(name="Card 1",description="Card 1 description"),
+    cardData(name="Card 2",description="Card 2 description"),
+    cardData(name="Card 3",description="Card 3 description"),
+    cardData(name="Card 4",description="Card 4 description"),
+    cardData(name="Card 5",description="Card 5 description"),
+]
+
 class myCard(rectObj):
-    def __init__(self,rect,color=Cs.white,name="",**kwargs):
+    def __init__(self,rect,color=Cs.white,cardData:cardData=None,**kwargs):
         super().__init__(rect,color=color,**kwargs)
-        self.nameText = textObj(name,size=24,color=Cs.black)
+        self.nameText = textObj(cardData.name,size=24,color=Cs.black)
         self.nameText.setParent(self)
         self.nameText.center = self.offsetRect.midtop + RPoint(0,30)
+        self.descriptionText = textObj(cardData.description,size=16,color=Cs.black)
+        self.descriptionText.setParent(self)
+        self.descriptionText.midbottom = self.offsetRect.midbottom + RPoint(0,-30)
     def draw(self):
         super().draw()
         return
@@ -53,7 +72,7 @@ class mainScene(Scene):
         self.cards: list[myCard] = []
         self.checkboxes: list[myCheckbox] = []
         for i in range(5):
-            card = myCard(pygame.Rect(0,0,200,300),color=Cs.yellow,name=f"My Card {i+1}")
+            card = myCard(pygame.Rect(0,0,200,300),color=Cs.yellow,cardData=Card_Library[i].clone())
             self.cards.append(card)
         self.cardLayout = layoutObj(childs=self.cards,isVertical=False)
         self.cardLayout.center = Rs.screenRect().center + RPoint(0,-100)
