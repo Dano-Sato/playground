@@ -21,9 +21,10 @@ CARD_LIBRARY = [
 class cardWidget(rectObj):
     HEIGHT = 350
     WIDTH = 210
-    def __init__(self,card:cardData):
+    def __init__(self,card:cardData,scene:"mainScene"):
         super().__init__(pygame.Rect(0,0,self.WIDTH,self.HEIGHT))
         self.card = card
+        self.scene = scene
         self.nameObj = textObj(card.name,size=24,color=Cs.black)
         self.nameObj.midtop = self.offsetRect.midtop + RPoint(0,10)
         self.nameObj.setParent(self)
@@ -36,6 +37,18 @@ class cardWidget(rectObj):
         self.center = Rs.mousePos() - self.parent.pos
 
     def on_drop(self):
+        if self.center.y > 0:
+            return
+        if self.card.effect == "score1":
+            self.scene.setScore(self.scene.getScore()+1)
+        elif self.card.effect == "score10":
+            self.scene.setScore(self.scene.getScore()+10)
+        elif self.card.effect == "score100":
+            self.scene.setScore(self.scene.getScore()+100)
+        
+        self.setParent(None)
+            
+
         return
 
 
@@ -49,15 +62,22 @@ class Obj:
 
 class mainScene(Scene):
     def initOnce(self):
-        self.a = textObj("New game")
-        self.a.midtop = Rs.screenRect().midtop + RPoint(0,30)
+
+        self.score = 0
+        self.scoreBoard = textObj("SCORE:0")
+        self.scoreBoard.midtop = Rs.screenRect().midtop + RPoint(0,30)
 
         self.hand = cardLayout(pos=RPoint(200,700),maxWidth=1000)
         for i in range(len(CARD_LIBRARY)):
-            widget = cardWidget(CARD_LIBRARY[i].clone())
+            widget = cardWidget(CARD_LIBRARY[i].clone(),self)
             widget.setParent(self.hand)
 
         return
+    def getScore(self):
+        return self.score
+    def setScore(self,score):
+        self.score = score
+        self.scoreBoard.text = f"SCORE:{self.score}"
     def init(self):
         return
     def update(self):
@@ -67,7 +87,7 @@ class mainScene(Scene):
             
         return
     def draw(self):
-        self.a.draw()
+        self.scoreBoard.draw()
         self.hand.draw()
         if Rs.draggedObj:
             Rs.draggedObj.draw()
