@@ -33,7 +33,7 @@ class cardWidget(rectObj):
         self.descObj.setParent(self)
 
     def on_drag(self):
-        self.center = Rs.mousePos()
+        self.center = Rs.mousePos() - self.parent.pos
 
     def on_drop(self):
         return
@@ -52,7 +52,7 @@ class mainScene(Scene):
         self.a = textObj("New game")
         self.a.midtop = Rs.screenRect().midtop + RPoint(0,30)
 
-        self.hand = cardLayout(pos=RPoint(100,700),maxWidth=1000)
+        self.hand = cardLayout(pos=RPoint(200,700),maxWidth=1000)
         for i in range(len(CARD_LIBRARY)):
             widget = cardWidget(CARD_LIBRARY[i].clone())
             widget.setParent(self.hand)
