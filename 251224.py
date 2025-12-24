@@ -23,6 +23,14 @@ class cardWidget(rectObj):
     WIDTH = 210
     def __init__(self,card:cardData):
         super().__init__(pygame.Rect(0,0,self.WIDTH,self.HEIGHT))
+        self.card = card
+        self.nameObj = textObj(card.name,size=24,color=Cs.black)
+        self.nameObj.midtop = self.offsetRect.midtop + RPoint(0,10)
+        self.nameObj.setParent(self)
+
+        self.descObj = textObj(card.description,size=16,color=Cs.black)
+        self.descObj.midbottom = self.offsetRect.midbottom + RPoint(0,-10)
+        self.descObj.setParent(self)
 
 #게임 오브젝트들을 선언하는 곳입니다.
 class Obj:
@@ -33,14 +41,21 @@ class mainScene(Scene):
         self.a = textObj("New game")
         self.a.midtop = Rs.screenRect().midtop + RPoint(0,30)
 
-        self.hand = cardLayout(pos=RPoint(100,700))
+        hand = []
+        self.hand = cardLayout(pos=RPoint(100,700),maxWidth=1000)
+        for i in range(len(CARD_LIBRARY)):
+            widget = cardWidget(CARD_LIBRARY[i].clone())
+            widget.setParent(self.hand)
+
         return
     def init(self):
         return
     def update(self):
+        self.hand.adjustLayout()
         return
     def draw(self):
         self.a.draw()
+        self.hand.draw()
         return
 
 
