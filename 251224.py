@@ -32,6 +32,7 @@ class cardWidget(rectObj):
         self.descObj.midbottom = self.offsetRect.midbottom + RPoint(0,-10)
         self.descObj.setParent(self)
 
+
 #게임 오브젝트들을 선언하는 곳입니다.
 class Obj:
     None
@@ -41,7 +42,6 @@ class mainScene(Scene):
         self.a = textObj("New game")
         self.a.midtop = Rs.screenRect().midtop + RPoint(0,30)
 
-        hand = []
         self.hand = cardLayout(pos=RPoint(100,700),maxWidth=1000)
         for i in range(len(CARD_LIBRARY)):
             widget = cardWidget(CARD_LIBRARY[i].clone())
@@ -52,6 +52,7 @@ class mainScene(Scene):
         return
     def update(self):
         self.hand.adjustLayout()
+            
         return
     def draw(self):
         self.a.draw()
