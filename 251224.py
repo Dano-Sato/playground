@@ -32,9 +32,6 @@ class cardWidget(rectObj):
         self.descObj.midbottom = self.offsetRect.midbottom + RPoint(0,-10)
         self.descObj.setParent(self)
 
-    def on_drag_start(self):
-        self.setParent(None)
-
     def on_drag(self):
         self.center = Rs.mousePos()
 
@@ -43,9 +40,7 @@ class cardWidget(rectObj):
 
 
     def handle_events(self):
-        Rs.dragEventHandler(self,draggedObj=self,
-        dragStartFunc=self.on_drag_start,
-        draggingFunc=self.on_drag,
+        Rs.dragEventHandler(self,draggedObj=self, draggingFunc=self.on_drag,
         dropFunc=self.on_drop)
 
 #게임 오브젝트들을 선언하는 곳입니다.
