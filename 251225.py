@@ -13,12 +13,20 @@ class mainScene(Scene):
     def initOnce(self):
         self.helloworld = textObj("Hello World")
         self.helloworld.center = Rs.screenRect().center
+        self.show_helloworld = True
         return
     def init(self):
         return
     def update(self):
         if Rs.userJustLeftClicked() and not self.helloworld.onInterpolation():
-            self.helloworld.jump(["center"],[self.helloworld.center + RPoint(0,-100)])
+            self.helloworld.jump(["center"],[self.helloworld.center + RPoint(0,-100)],steps=20)
+        if Rs.userJustPressed(pygame.K_z):
+            self.show_helloworld = not self.show_helloworld
+            if self.show_helloworld:
+                self.helloworld.easeout(["alpha"],[255])
+            else:
+                self.helloworld.easeout(["alpha"],[0])
+
         return
     def draw(self):
         self.helloworld.draw()
