@@ -16,7 +16,7 @@ CARD_LIBRARY = [
     cardData(name="Card 2", description="Score + 10", effect = "score10"),
     cardData(name="Card 3", description="Score + 100", effect = "score100"),
     cardData(name="Card 4", description="Damage 10", effect = "damage10"),
-    cardData(name="Card 4", description="Damage 1 all", effect = "damage1all"),
+    cardData(name="Card 5", description="Damage 1 to all", effect = "damage1all"),
 
 ]
 
