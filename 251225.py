@@ -17,6 +17,8 @@ class mainScene(Scene):
     def init(self):
         return
     def update(self):
+        if Rs.userJustLeftClicked() and not self.helloworld.onInterpolation():
+            self.helloworld.jump(["center"],[self.helloworld.center + RPoint(0,-100)])
         return
     def draw(self):
         self.helloworld.draw()
