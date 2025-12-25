@@ -39,6 +39,9 @@ class cardWidget(rectObj):
         self.center = Rs.mousePos() - self.parent.pos
 
     def on_drop(self):
+        '''
+        카드 효과를 실행한다.
+        '''
         if self.center.y > 0:
             return
         if self.card.effect == "score1":
