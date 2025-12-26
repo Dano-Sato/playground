@@ -13,10 +13,14 @@ class mainScene(Scene):
     def initOnce(self):
         self.h = textObj("hello World")
         self.h.center = Rs.screenRect().center
+        self.r = random.random()
         return
     def init(self):
         return
     def update(self):
+        t = pygame.time.get_ticks() / 100
+        self.h.alpha = (math.sin(t+self.r)+1)*255/2
+
         return
     def draw(self):
         self.h.draw()
