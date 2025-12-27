@@ -18,7 +18,11 @@ class mainScene(Scene):
         return
     def update(self):
         if Rs.userJustLeftClicked() and self.h.collideMouse():
-            self.h.easeout(["size","center"],[self.h.size+30,Rs.screenRect().center],steps=15,revert=True)
+            if self.h.size < 150:
+                self.h.easeout(["size","center"],[self.h.size+30,Rs.screenRect().center],steps=15,revert=True)
+            else:
+                self.h.easeout(["size","center"],[32,Rs.screenRect().center],steps=15)
+
         return
     def draw(self):
         self.h.draw()
