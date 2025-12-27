@@ -11,18 +11,14 @@ class Obj:
 
 class mainScene(Scene):
     def initOnce(self):
-        self.h = textObj("hello World")
+        self.h = textObj("Hello World")
         self.h.center = Rs.screenRect().center
-        self.r = random.random()
         return
     def init(self):
         return
     def update(self):
-        t = pygame.time.get_ticks() / 100
-        k = (math.sin(t+self.r)+1)*255/2
-        self.h.alpha = k
-        self.h.color = (k,255,255)
-
+        if Rs.userJustLeftClicked() and self.h.collideMouse():
+            self.h.easeout(["size","center"],[self.h.size+30,Rs.screenRect().center],steps=15,revert=True)
         return
     def draw(self):
         self.h.draw()
