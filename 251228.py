@@ -10,13 +10,22 @@ class Obj:
     None
 
 class mainScene(Scene):
+    h_string = "hello world"
     def initOnce(self):
-        self.h = textObj("Hello World")
+        self.index = 0
+        self.h = longTextObj("",textWidth=500)
         self.h.center = Rs.screenRect().center
+        self.t = pygame.time.get_ticks()
         return
     def init(self):
         return
     def update(self):
+        if pygame.time.get_ticks() - self.t > 100:
+            self.t = pygame.time.get_ticks()
+            self.index = min(len(self.h_string),self.index+1)
+            self.h.text = self.h_string[:self.index]
+            self.h.center = Rs.screenRect().center
+        
         return
     def draw(self):
         self.h.draw()
