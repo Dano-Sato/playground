@@ -10,7 +10,8 @@ class Obj:
     None
 
 class mainScene(Scene):
-    h_string = "hello world"
+    h_string = "Hello World"
+    time_interval = 100
     def initOnce(self):
         self.index = 0
         self.h = longTextObj("",textWidth=500)
@@ -20,7 +21,7 @@ class mainScene(Scene):
     def init(self):
         return
     def update(self):
-        if pygame.time.get_ticks() - self.t > 100:
+        if pygame.time.get_ticks() - self.t > self.time_interval:
             self.t = pygame.time.get_ticks()
             self.index = min(len(self.h_string),self.index+1)
             self.h.text = self.h_string[:self.index]
