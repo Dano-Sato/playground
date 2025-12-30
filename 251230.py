@@ -12,7 +12,8 @@ class Obj:
 class mainScene(Scene):
     def initOnce(self):
         self.h = textObj("Hello World")
-        self.h.center = Rs.screenRect().center
+        self.h.midtop = Rs.screenRect().midtop + RPoint(0,100)
+        self.h.easeout(["center","size"],[Rs.screenRect().center,100])
         return
     def init(self):
         return
