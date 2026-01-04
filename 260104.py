@@ -59,16 +59,16 @@ class cardWidget(rectObj):
 
 class mainScene(Scene):
     def initOnce(self):
-        self.jyankenCards = [JyankenCard(name="Rock",description="Rock",effect="Rock",lv=1),
-                             JyankenCard(name="Paper",description="Paper",effect="Paper",lv=1),
-                             JyankenCard(name="Scissors",description="Scissors",effect="Scissors",lv=1)]
+        self.jyankenCards = [JyankenCard(name="Rock",description="Rock",effect="Rock",lv=1,power=10),
+                             JyankenCard(name="Paper",description="Paper",effect="Paper",lv=1,power=10),
+                             JyankenCard(name="Scissors",description="Scissors",effect="Scissors",lv=1,power=10)]
         self.cardWidgets = [cardWidget(card,self) for card in self.jyankenCards]
         self.cardLayout = cardLayout(pos=RPoint(0,0),isVertical=False,maxWidth=1000)
         for widget in self.cardWidgets:
             widget.setParent(self.cardLayout)
         self.cardLayout.center = Rs.screenRect().center + RPoint(0,300)
 
-        self.enemyCard = cardWidget(JyankenCard(name="Rock",description="Rock",effect="Rock",lv=1),self)
+        self.enemyCard = cardWidget(JyankenCard(name="Rock",description="Rock",effect="Rock",lv=1,power=10),self)
         self.enemyCard.center = Rs.screenRect().center - RPoint(0,400)
         return
     def init(self):
