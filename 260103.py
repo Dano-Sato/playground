@@ -15,6 +15,7 @@ class mainScene(Scene):
         self.h.center = Rs.screenRect().center
 
         self.player = rectObj(pygame.Rect(0,0,100,100),color=Cs.red)
+        self.player.center = Rs.screenRect().center - RPoint(0,100)
         self.player_heart_container = layoutObj(pos=RPoint(0,-50),isVertical=False,spacing=5)
         self.player_heart_container.setParent(self.player)
         self.player_hearts = 3
